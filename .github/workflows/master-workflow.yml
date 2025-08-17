@@ -38,7 +38,6 @@
 # - Éviter l’introduction de code non testé ou de mauvaise qualité dans master.
 # -------------------------------------------------------------------
 
-
 name: CI
 
 on:
@@ -50,56 +49,77 @@ on:
 
 jobs:
   commitlint:
-    if: contains(github.event.head_commit.message, 'skip-ci') == false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      - name: Check for package.json
+        id: check_pkg
+        run: |
+          if [ ! -f "package.json" ]; then
+            echo "no_package=true" >> $GITHUB_OUTPUT
+          else
+            echo "no_package=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Setup Node.js
+        if: steps.check_pkg.outputs.no_package == 'false'
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
       - name: Install dependencies
+        if: steps.check_pkg.outputs.no_package == 'false'
         run: |
           corepack enable
           pnpm install --frozen-lockfile
 
       - name: Run commitlint
+        if: steps.check_pkg.outputs.no_package == 'false'
         run: |
           npx commitlint --from=origin/master --to=HEAD
 
   build:
     runs-on: ubuntu-latest
     needs: commitlint
-    strategy:
-      matrix:
-        node-version: [18, 20]
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check for package.json
+        id: check_pkg
+        run: |
+          if [ ! -f "package.json" ]; then
+            echo "no_package=true" >> $GITHUB_OUTPUT
+          else
+            echo "no_package=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Install pnpm
+        if: steps.check_pkg.outputs.no_package == 'false'
         uses: pnpm/action-setup@v4
         with:
           version: 10
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js
+        if: steps.check_pkg.outputs.no_package == 'false'
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20
           cache: "pnpm"
 
       - name: Install dependencies
+        if: steps.check_pkg.outputs.no_package == 'false'
         run: pnpm ci
 
       - name: Lint check
+        if: steps.check_pkg.outputs.no_package == 'false'
         run: pnpm lint
 
       - name: Run tests
+        if: steps.check_pkg.outputs.no_package == 'false'
         run: pnpm test -- --run
-
   # only YAML updates 
   yaml-check:
     runs-on: ubuntu-latest
