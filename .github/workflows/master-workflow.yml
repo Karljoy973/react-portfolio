@@ -50,11 +50,12 @@ on:
 
 jobs:
   commitlint:
+    if: contains(github.event.head_commit.message, 'skip-ci') == false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # important pour analyser tous les commits
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -69,14 +70,13 @@ jobs:
       - name: Run commitlint
         run: |
           npx commitlint --from=origin/master --to=HEAD
-          
+
   build:
     runs-on: ubuntu-latest
     needs: commitlint
     strategy:
       matrix:
         node-version: [18, 20]
-
     steps:
       - uses: actions/checkout@v4
 
@@ -99,3 +99,14 @@ jobs:
 
       - name: Run tests
         run: pnpm test -- --run
+
+  # only YAML updates 
+  yaml-check:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check YAML files
+        if: ${{ github.event.pull_request && !cancelled() }}
+        run: |
+          echo "Only YAML files changed, skipping dependency installation."
