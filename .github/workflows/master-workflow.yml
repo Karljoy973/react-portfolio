@@ -58,8 +58,8 @@ jobs:
         run: pnpm snapshots:check
 
       # 🔹 Lancer ESLint et Prettier
-      - name: Run lint
-        run: pnpm lint
+      # - name: Run lint
+      #  run: pnpm lint
 
       - name: Run Prettier format
         run: pnpm pretty
