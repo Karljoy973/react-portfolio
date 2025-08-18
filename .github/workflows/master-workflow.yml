@@ -18,14 +18,13 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 10
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install 
 
       # 🔹 Vérifier que la branche suit bien le format issue-xxx
       - name: Check branch name
