@@ -62,7 +62,7 @@ jobs:
             echo "no_package=true" >> $GITHUB_OUTPUT
           else
             echo "no_package=false" >> $GITHUB_OUTPUT
-          fi
+          
 
       - name: Setup Node.js
         if: steps.check_pkg.outputs.no_package == 'false'
@@ -79,7 +79,7 @@ jobs:
       - name: Run commitlint
         if: steps.check_pkg.outputs.no_package == 'false'
         run: |
-          npx commitlint --from=origin/master --to=HEAD
+          pnpm dlx commitlint --from=origin/master --to=HEAD
 
   build:
     runs-on: ubuntu-latest
