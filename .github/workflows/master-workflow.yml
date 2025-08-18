@@ -61,7 +61,7 @@ jobs:
           version: 10
 
       - name: Install dependencies
-        run: npm i -g pnpm 
+        run: pnpm install --frozen-lockfile
 
       # 🔹 Vérifier que la branche suit bien le format issue-xxx
       - name: Check branch name
