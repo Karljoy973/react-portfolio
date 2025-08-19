@@ -21,6 +21,7 @@ jobs:
             echo "no_package=true" >> $GITHUB_OUTPUT
           else
             echo "no_package=false" >> $GITHUB_OUTPUT
+          fi
           
       - name: Setup Node.js
         uses: actions/setup-node@v4
