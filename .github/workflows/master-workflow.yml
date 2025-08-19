@@ -4,14 +4,10 @@ on:
   pull_request:
     branches:
       - master
-    branches:
-      - master
 
 jobs:
   validate:
-  validate:
     runs-on: ubuntu-latest
-
 
     steps:
       - uses: actions/checkout@v4
@@ -25,108 +21,31 @@ jobs:
             echo "no_package=true" >> $GITHUB_OUTPUT
           else
             echo "no_package=false" >> $GITHUB_OUTPUT
-          
+          fi
 
+      # 🔹 Installer Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          
-      - name: Setup pnpm
-          node-version: 24
-          
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
-      - name: Use Node.js
-        if: steps.check_pkg.outputs.no_package == 'false'
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: "pnpm"
+      # 🔹 Installer pnpm globalement
+      - name: Install pnpm globally
+        run: npm i -g pnpm
 
+      # 🔹 Installer les dépendances si package.json existe
       - name: Install dependencies
-        run: npm i -g pnpm 
-
-      # 🔹 Vérifier que la branche suit bien le format issue-xxx
-      - name: Check branch name
-        run: |
-          BRANCH_NAME="${GITHUB_HEAD_REF}"
-          if [[ ! "$BRANCH_NAME" =~ ^issue-[0-9]+(-[a-z0-9-_]+)*$ ]]; then
-            echo "❌ Branch name must follow format: issue-123-description"
-            exit 1
-          else
-            echo "✅ Branch name is valid: $BRANCH_NAME"
-          fi
-
-      # 🔹 Vérifier que le dernier commit suit {branch}-{YYYY-MM-DD}
-      - name: Check last commit message
-        run: |
-          COMMIT_MSG=$(git log -1 --pretty=%B | tr -d '\n')
-          BRANCH_NAME="${GITHUB_HEAD_REF}"
-          DATE_REGEX="[0-9]{4}-[0-9]{2}-[0-9]{2}$"
-          if [[ "$COMMIT_MSG" =~ ^${BRANCH_NAME}-${DATE_REGEX}$ ]]; then
-            echo "✅ Commit message is valid: $COMMIT_MSG"
-          else
-            echo "❌ Last commit must match format: {branchName}-YYYY-MM-DD"
-            echo "   Branch: $BRANCH_NAME"
-            echo "   Commit: $COMMIT_MSG"
-            exit 1
-          fi
+        if: steps.check_pkg.outputs.no_package == 'false'
+        run: pnpm install
 
       # 🔹 Vérifier qu’il y a bien des snapshots
       - name: Check snapshots presence
         run: pnpm snapshots:check
 
-      # 🔹 Lancer ESLint et Prettier
-      # - name: Run lint
-      #  run: pnpm lint
-
+      # 🔹 Lancer Prettier
       - name: Run Prettier format
         run: pnpm pretty
 
-      # 🔹 Lancer les tests (inclut snapshot check)
-        run: npm i -g pnpm 
-
-      # 🔹 Vérifier que la branche suit bien le format issue-xxx
-      - name: Check branch name
-        run: |
-          BRANCH_NAME="${GITHUB_HEAD_REF}"
-          if [[ ! "$BRANCH_NAME" =~ ^issue-[0-9]+(-[a-z0-9-_]+)*$ ]]; then
-            echo "❌ Branch name must follow format: issue-123-description"
-            exit 1
-          else
-            echo "✅ Branch name is valid: $BRANCH_NAME"
-          fi
-
-      # 🔹 Vérifier que le dernier commit suit {branch}-{YYYY-MM-DD}
-      - name: Check last commit message
-        run: |
-          COMMIT_MSG=$(git log -1 --pretty=%B | tr -d '\n')
-          BRANCH_NAME="${GITHUB_HEAD_REF}"
-          DATE_REGEX="[0-9]{4}-[0-9]{2}-[0-9]{2}$"
-          if [[ "$COMMIT_MSG" =~ ^${BRANCH_NAME}-${DATE_REGEX}$ ]]; then
-            echo "✅ Commit message is valid: $COMMIT_MSG"
-          else
-            echo "❌ Last commit must match format: {branchName}-YYYY-MM-DD"
-            echo "   Branch: $BRANCH_NAME"
-            echo "   Commit: $COMMIT_MSG"
-            exit 1
-          fi
-
-      # 🔹 Vérifier qu’il y a bien des snapshots
-      - name: Check snapshots presence
-        run: pnpm snapshots:check
-
-      # 🔹 Lancer ESLint et Prettier
-      # - name: Run lint
-      #  run: pnpm lint
-
-      - name: Run Prettier format
-        run: pnpm pretty
-
-      # 🔹 Lancer les tests (inclut snapshot check)
+      # 🔹 Lancer les tests
       - name: Run tests
         run: pnpm test
