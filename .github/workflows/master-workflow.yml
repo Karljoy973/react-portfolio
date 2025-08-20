@@ -23,22 +23,29 @@ jobs:
             echo "no_package=false" >> $GITHUB_OUTPUT
           fi
 
-      # 🔹 Installer Node.js + pnpm
-      - name: Setup Node.js with pnpm
+      # 🔹 Installer Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: "pnpm"
-          package-manager: pnpm
 
-      # 🔹 Installer les dépendances (si package.json existe)
+      # 🔹 Installer pnpm correctement
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10 # ou la version que tu veux
+          run_install: false
+
+      # 🔹 Installer les dépendances uniquement si package.json existe
       - name: Install dependencies
         if: steps.check_pkg.outputs.no_package == 'false'
         run: pnpm install --frozen-lockfile
 
-      # 🔹 Lancer ESLint et Prettier
+      # 🔹 Vérifier ESLint
       - name: Run lint
         run: pnpm lint
 
+      # 🔹 Vérifier Prettier
       - name: Run Prettier format
         run: pnpm pretty
