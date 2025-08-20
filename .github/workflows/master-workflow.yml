@@ -28,24 +28,32 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: "pnpm"
 
-      # 🔹 Installer pnpm correctement
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10 # ou la version que tu veux
-          run_install: false
+      # 🔹 Installer pnpm globalement
+      - name: Install pnpm
+        run: npm install -g pnpm@9
 
-      # 🔹 Installer les dépendances uniquement si package.json existe
+      # 🔹 Installer les dépendances (seulement si package.json existe)
       - name: Install dependencies
         if: steps.check_pkg.outputs.no_package == 'false'
         run: pnpm install --frozen-lockfile
 
-      # 🔹 Vérifier ESLint
+      # 🔹 ESLint
       - name: Run lint
         run: pnpm lint
 
-      # 🔹 Vérifier Prettier
+      # 🔹 Prettier
       - name: Run Prettier format
         run: pnpm pretty
+
+      # 🔹 Tests
+      - name: Run tests
+        run: pnpm test -- --ci --coverage
+
+      # 🔹 Nettoyage (désinstalle pnpm et supprime node_modules)
+      - name: Cleanup
+        if: always()
+        run: |
+          npm uninstall -g pnpm
+          rm -rf node_modules
+          rm -rf ~/.pnpm-store
