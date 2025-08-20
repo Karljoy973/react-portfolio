@@ -23,26 +23,13 @@ jobs:
             echo "no_package=false" >> $GITHUB_OUTPUT
           fi
 
-      # 🔹 Installer Node.js
-      - name: Setup Node.js
+      # 🔹 Installer Node.js + pnpm
+      - name: Setup Node.js with pnpm
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: "pnpm" # active le cache natif de setup-node
-
-      # 🔹 Installer pnpm globalement
-      - name: Install pnpm globally
-        run: npm i -g pnpm
-
-      # 🔹 Cache du store pnpm pour accélérer les installs
-      - name: Setup pnpm cache
-        if: steps.check_pkg.outputs.no_package == 'false'
-        uses: actions/cache@v4
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
+          cache: "pnpm"
+          package-manager: pnpm
 
       # 🔹 Installer les dépendances (si package.json existe)
       - name: Install dependencies
