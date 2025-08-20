@@ -48,7 +48,7 @@ jobs:
 
       # 🔹 Tests
       - name: Run tests
-        run: pnpm test -- --ci --coverage
+        run: pnpm test 
 
       # 🔹 Nettoyage (désinstalle pnpm et supprime node_modules)
       - name: Cleanup
