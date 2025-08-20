@@ -45,11 +45,5 @@ jobs:
       - name: Run Prettier format
         run: pnpm pretty
 
-      # 🔹 Lancer les tests (inclut snapshot check)
-        run: npm i -g pnpm 
-
-
-        if: steps.check_pkg.outputs.no_package == 'false'
-        run: pnpm install
 
 
