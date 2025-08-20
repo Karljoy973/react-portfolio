@@ -7,6 +7,6 @@ export function meta(meta: Route.MetaArgs) {
         { name: "description", content: "Ne soyez pas timides, je ne mords pas" },
     ];
 }
-export default function Home() {
-    return <ContactPage />;
+export default function Contact() {
+	return <ContactPage />;
 }
