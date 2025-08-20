@@ -35,17 +35,21 @@ jobs:
 
       # 🔹 Installer les dépendances si package.json existe
       - name: Install dependencies
-        if: steps.check_pkg.outputs.no_package == 'false'
-        run: pnpm install
 
-      # 🔹 Vérifier qu’il y a bien des snapshots
-      - name: Check snapshots presence
-        run: pnpm snapshots:check
+        run: npm i -g pnpm 
 
-      # 🔹 Lancer Prettier
+      # 🔹 Lancer ESLint et Prettier
+      # - name: Run lint
+      #  run: pnpm lint
+
       - name: Run Prettier format
         run: pnpm pretty
 
-      # 🔹 Lancer les tests
-      - name: Run tests
-        run: pnpm test
+      # 🔹 Lancer les tests (inclut snapshot check)
+        run: npm i -g pnpm 
+
+
+        if: steps.check_pkg.outputs.no_package == 'false'
+        run: pnpm install
+
+

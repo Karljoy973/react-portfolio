@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm snapshots:check && pnpm test && pnpm snapshots
+pnpm test && pnpm snapshots

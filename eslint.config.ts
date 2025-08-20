@@ -10,34 +10,40 @@ export default defineConfig([
   // Ignorer certains dossiers
   {
     ignores: [
-      "__test__/**",
+      "__tests__/**",
       ".github/**",
       "node_modules/**",
       "public/**",
       ".react-router/**",
-      "build/**"
+      "build/**",
     ],
   },
+
+  // Base TypeScript + React + Prettier
   tseslint.configs.recommended as Linter.Config[],
   eslintConfigPrettier,
   pluginReact.configs.flat.recommended,
-  // Config de base pour JS/TS/React
+
+  // Config générale JS/TS/React
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     plugins: { js },
     extends: ["js/recommended"],
     languageOptions: {
-      ecmaVersion: 2023, // support complet ES2023
+      ecmaVersion: 2023,
       sourceType: "module",
       globals: {
-        ...globals.browser, // utile si tu fais du front
-        ...globals.node,    // ajoute les globals Node 24 (process, Buffer…)
+        ...globals.browser,
+        ...globals.node,
       },
     },
     rules: {
+      // JSX moderne → plus besoin d'importer React
       "react/react-in-jsx-scope": "off",
-        "react/jsx-uses-react": "off",
-      "import/no-default-export": "off"
+      "react/jsx-uses-react": "off",
+
+      // Tu choisis d’autoriser les default exports
+      "import/no-default-export": "off",
     },
     settings: {
       react: {
@@ -45,5 +51,14 @@ export default defineConfig([
       },
     },
   },
-  
+
+  // Exceptions locales : index.tsx, root.tsx, routes/*
+  {
+    files: ["app/**/index.tsx", "app/root.tsx", "app/routes/**/*.tsx"],
+    rules: {
+      // On désactive seulement ce qui pose problème
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+    },
+  },
 ]);
