@@ -1,6 +1,6 @@
 import { describe, test, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { createMemoryRouter, RouterProvider} from "react-router-dom";
+import { createMemoryRouter, RouterProvider } from "react-router-dom";
 
 import Home from "@/routes/home";
 import Contact from "@/routes/contact";
@@ -14,7 +14,7 @@ describe("verifie que chaque page est bien rendue", () => {
         { path: "/contact", element: <Contact /> },
         { path: "/about", element: <About /> },
       ],
-      { initialEntries: ["/"] } // simulate URL "/"
+      { initialEntries: ["/"] }, // simulate URL "/"
     );
 
     render(<RouterProvider router={router} />);
@@ -29,7 +29,7 @@ describe("verifie que chaque page est bien rendue", () => {
         { path: "/contact", element: <Contact /> },
         { path: "/about", element: <About /> },
       ],
-      { initialEntries: ["/contact"] }
+      { initialEntries: ["/contact"] },
     );
 
     render(<RouterProvider router={router} />);
@@ -44,12 +44,11 @@ describe("verifie que chaque page est bien rendue", () => {
         { path: "/contact", element: <Contact /> },
         { path: "/about", element: <About /> },
       ],
-      { initialEntries: ["/about"] }
+      { initialEntries: ["/about"] },
     );
 
     render(<RouterProvider router={router} />);
 
     expect(screen.getByText(/about/i)).toBeTruthy();
   });
-
 });
