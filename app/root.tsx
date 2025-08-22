@@ -11,6 +11,7 @@ import { type ReactNode } from "react";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import NavBar from "./components/NavBar";
 
 export function meta(meta: Partial<Route.MetaArgs>) {
   return [
@@ -42,6 +43,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <Links />
       </head>
       <body>
+        <NavBar />
         <main className="max-w-6xl mx-auto px-6 my-8" data-testid="root-layout">
           {children}
         </main>
