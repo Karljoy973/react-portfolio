@@ -7,32 +7,47 @@ import {
 	RiBook2Line,
 	RiBriefcaseLine,
 	RiMailLine,
+	RiLockFill,
+	RiLockUnlockFill,
 } from "react-icons/ri";
+import { GrAchievement } from "react-icons/gr";
 
 const links = [
 	{
 		to: "/a-propos",
 		label: "À propos",
-		icon: <RiUserLine size={22} />,
+		icon: <RiUserLine size={22} data-testid="icone-a-propos" />,
 		aria: "page-a-propos",
 	},
 	{
 		to: "/blog",
 		label: "Blog",
-		icon: <RiBook2Line size={22} />,
+		icon: <RiBook2Line size={22} data-testid="icone-blog" />,
 		aria: "page-blog",
 	},
 	{
 		to: "/projets",
 		label: "Projets",
-		icon: <RiBriefcaseLine size={22} />,
+		icon: <RiBriefcaseLine size={22} data-testid="icone-projets" />,
 		aria: "page-projets",
 	},
 	{
 		to: "/contact",
 		label: "Contact",
-		icon: <RiMailLine size={22} />,
+		icon: <RiMailLine size={22} data-testid="icone-contact" />,
 		aria: "page-contact",
+	},
+	{
+		to: "/cv",
+		label: "Expériences",
+		icon: <GrAchievement size={22} data-testid="icone-cv" />,
+		aria: "page-cv",
+	},
+	{
+		to: "/connexion",
+		label: "Se Connecter",
+		icon: <RiLockFill size={22} data-testid="icone-connexion" />,
+		aria: "page-cv",
 	},
 ];
 
@@ -43,13 +58,10 @@ const NavBar = () => {
 			<div className="mx-auto px-6 py-4 flex justify-between items-center text-blue-400">
 				{/* Logo */}
 				<div className="items-center gap-6 text-gray-300">
-					<div
-						className="relative group"
-						aria-label="accueil"
-						data-testid="accueil">
+					<div className="relative group" aria-label="accueil">
 						<NavLink
 							to="/"
-							aria-label="accueil"
+							data-testid="accueil"
 							className="
 							nav-link 
 							flex
@@ -57,7 +69,10 @@ const NavBar = () => {
 							 gap-2
 							 text-lg
 							  font-bold hover:text-blue-300 active:text-blue-400">
-							<RiPlanetLine className="text-2xl" />
+							<RiPlanetLine
+								className="text-2xl"
+								data-testid="icone-accueil"
+							/>
 						</NavLink>
 						{/* Tooltip */}
 						<span className="absolute bottom-[-2.2rem] left-1/2 -translate-x-1/2 whitespace-nowrap text-sm bg-gray-900 text-white px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
@@ -89,6 +104,7 @@ const NavBar = () => {
 					))}
 				</ul>
 				<button
+					id="menu-hamburger"
 					className="text-blue-400 text-xl md:hidden"
 					onClick={() => setMenuOpen((value) => !value)}>
 					{menuOpen ? <FaTimes /> : <FaBars />}
@@ -96,7 +112,9 @@ const NavBar = () => {
 			</div>
 			{/**mobile nav */}
 			{menuOpen && (
-				<ul className="md:hidden bg-gray-800 border-t border-gray-700 px-6 py-4 space-y-2 space-x-4 text-center flex flex-row items-center-safe justify-center">
+				<ul
+					id="dropdown-menu"
+					className="md:hidden bg-gray-800 border-t border-gray-700 px-6 py-4 space-y-2 space-x-4 text-center flex flex-row items-center-safe justify-center">
 					{links.map(({ to, label, icon }) => (
 						<div className=" flex size-fit">
 							<NavLink
