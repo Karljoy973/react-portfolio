@@ -14,3 +14,13 @@ body {
     color-scheme: dark;
   }
 }
+
+@layer components {
+  .nav-link {
+    @apply transition hover:text-blue-400 gap-2;
+  }
+
+  .nav-link.active {
+    @apply text-blue-400 font-semibold;
+  }
+}
