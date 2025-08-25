@@ -1,7 +1,6 @@
 import type { MenuNavigationLinksProps } from "@/types";
 import { NavLink } from "react-router-dom";
 
-
 const DesktopNavigationLinks = ({ links }: MenuNavigationLinksProps) => {
   return (
     <ul className="hidden md:flex items-center gap-6 text-gray-300">
