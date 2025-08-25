@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { cleanup, render } from "@testing-library/react";
-import { fireEvent, screen } from "@testing-library/dom";
+import { fireEvent } from "@testing-library/dom";
 import { afterEach, beforeEach } from "node:test";
 import { MemoryRouter } from "react-router";
 import NavBar from "@/components/NavBar";
@@ -24,7 +24,7 @@ describe("verifie que le layout est valide pour toutes les plateformes", () => {
 		const logo = document.getElementsByTagName("a")[0];
 		expect(logo.getAttribute("data-testid")).toBe("accueil");
 
-		let navlinks = document.getElementsByTagName("a");
+		const navlinks = document.getElementsByTagName("a");
 		for (const link of navlinks) {
 			expect(link.getAttribute("data-testid")).toBeDefined();
 		}
