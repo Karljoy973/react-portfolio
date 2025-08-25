@@ -56,4 +56,18 @@ describe("verifie que le layout est valide pour toutes les plateformes", () => {
 			expect(navLinks!.children.length).toBeGreaterThan(0);
 		}, 100);
 	});
+
+	test("Quand je survole une icone, je vois le label associe", () => {
+		render(
+			<MemoryRouter>
+				<div
+					style={{
+						width: "1200px",
+						height: "250px",
+					}}>
+					<NavBar />
+				</div>
+			</MemoryRouter>
+		);
+	});
 });
