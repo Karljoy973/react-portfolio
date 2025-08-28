@@ -1,7 +1,9 @@
 const Tooltip = ({label}:TooltipProps) => {
-    return (<>
-    
-        <span className="
+    return (
+		<>
+			<span
+				className="
+        tooltip
      absolute
      bottom-[-2.2rem]
      left-1/2
@@ -18,10 +20,10 @@ const Tooltip = ({label}:TooltipProps) => {
     transition-opacity
     duration-200
     pointer-events-none">
-            {label}
-        </span>
-    </>
-        );
+				{label}
+			</span>
+		</>
+	);
 }
 
 export type TooltipProps = {label:string}
