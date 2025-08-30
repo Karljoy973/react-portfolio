@@ -12,3 +12,5 @@ export type MenuNavigationLinksProps = {
   menuOpen: boolean;
   setMenuOpen: Dispatch<SetStateAction<boolean>>;
 };
+
+export type NavigationRoutesProps = Pick<MenuNavigationLinksProps, "links">;

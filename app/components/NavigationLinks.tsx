@@ -7,7 +7,7 @@ import {
   RiLockFill,
 } from "react-icons/ri";
 import DesktopNavigationLinks from "./DesktopNavigationLinks";
-import MobileNavigationLinks from "./MobileNavigationLinks";
+import { ResponsiveMenu } from "./ResponsiveMenu";
 
 const NavigationLinks = () => {
   const links = [
@@ -52,7 +52,7 @@ const NavigationLinks = () => {
   return (
     <>
       <DesktopNavigationLinks links={links} />
-      <MobileNavigationLinks links={links} />
+      <ResponsiveMenu links={links} />
     </>
   );
 };

@@ -2,9 +2,9 @@ import { NavLink } from "react-router";
 import { RiPlanetLine } from "react-icons/ri";
 import Tooltip from "./Tooltip";
 const NavigationLogo = () => {
-	return (
+  return (
 		<>
-			<div className="hidden md:block items-center gap-6 text-gray-300">
+			<div className=" md:block items-center gap-6 text-gray-300">
 				<div className="relative group" aria-label="accueil">
 					<NavLink
 						to="/"
@@ -26,7 +26,7 @@ const NavigationLogo = () => {
 				</div>
 			</div>
 		</>
-	);
+  );
 };
 
 export default NavigationLogo;
