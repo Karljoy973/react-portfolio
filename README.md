@@ -244,12 +244,8 @@ pnpm run claude:test-full    # Full testing suite
 - [ ] **Multi-language support** (i18n)
 - [ ] **Progressive Web App** (PWA) features
 - [ ] **Advanced analytics** integration
-- [ ] **Real-time chat** support
 - [ ] **API documentation** generator
 
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ### Development Workflow
 1. **Fork** the repository
