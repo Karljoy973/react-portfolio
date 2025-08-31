@@ -1,22 +1,41 @@
-import { describe, expect, test } from "vitest";
-import { cleanup, render } from "@testing-library/react";
-import { screen } from "@testing-library/dom";
-import { afterEach, beforeEach } from "node:test";
+import React from "react";
+import { describe, expect, test, beforeEach, afterEach } from "vitest";
+import { cleanup, render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import BlogPage from "@/blog";
+
+const renderWithRouter = (component: React.ReactElement) => {
+  return render(<BrowserRouter>{component}</BrowserRouter>);
+};
 
 beforeEach(() => {
   cleanup();
 });
+
 afterEach(() => {
   cleanup();
 });
 
-describe("all of the tests related to the BlogPage ", () => {
-  test("verifie que le premier element apres le main est une section et qu elle contient le test id blog-page ", () => {
-    render(<BlogPage />);
-    screen.getAllByRole("generic");
-    const section = document.getElementsByTagName("section");
-    expect(section).not.toBeUndefined();
-    expect(section[0].getAttribute("data-testid")).toBe("blog-page");
+describe("BlogPage Component Tests", () => {
+  test("renders with correct section structure and test-id", () => {
+    renderWithRouter(<BlogPage />);
+    
+    const section = screen.getByTestId("blog-page");
+    expect(section).toBeDefined();
+    expect(section.tagName.toLowerCase()).toBe("section");
+    
+    // Test CSS classes
+    expect(section.classList.contains("w-[100%]")).toBe(true);
+    expect(section.classList.contains("flex")).toBe(true);
+    
+    // Test actual content
+    expect(screen.getByText("Blog Page")).toBeDefined();
+  });
+
+  test("has proper semantic structure", () => {
+    renderWithRouter(<BlogPage />);
+    
+    const heading = screen.getByRole("heading", { level: 1 });
+    expect(heading.textContent).toBe("Blog Page");
   });
 });

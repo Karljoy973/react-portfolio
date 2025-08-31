@@ -1,22 +1,31 @@
-import { describe, expect, test } from "vitest";
-import { cleanup, render } from "@testing-library/react";
-import { screen } from "@testing-library/dom";
-import { afterEach, beforeEach } from "node:test";
+import React from "react";
+import { describe, expect, test, beforeEach, afterEach } from "vitest";
+import { cleanup, render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import CVPage from "@/cv";
+
+const renderWithRouter = (component: React.ReactElement) => {
+  return render(<BrowserRouter>{component}</BrowserRouter>);
+};
 
 beforeEach(() => {
   cleanup();
 });
+
 afterEach(() => {
   cleanup();
 });
 
-describe("all of the tests related to the CVPage ", () => {
-  test("verifie que le premier element apres le main est une section et qu elle contient le test id cv-page ", () => {
-    render(<CVPage />);
-    screen.getAllByRole("generic");
-    const section = document.getElementsByTagName("section");
-    expect(section).not.toBeUndefined();
-    expect(section[0].getAttribute("data-testid")).toBe("cv-page");
+describe("CVPage Component Tests", () => {
+  test("renders with correct section structure and test-id", () => {
+    renderWithRouter(<CVPage />);
+    
+    const section = screen.getByTestId("cv-page");
+    expect(section).toBeDefined();
+    expect(section.tagName.toLowerCase()).toBe("section");
+    
+    // Test CSS classes
+    expect(section.classList.contains("w-[100%]")).toBe(true);
+    expect(section.classList.contains("flex")).toBe(true);
   });
 });
