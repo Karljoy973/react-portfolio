@@ -11,9 +11,15 @@
     "lint:html": "eslint . --ext .ts,.tsx,.js,.jsx -f html > reports/main.html",
     "pretty": "prettier . --write ",
     "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "snapshots": "vitest run --update=false",
     "snapshots:update": "vitest run --update=true",
     "snapshots:check": "node scripts/check-snapshots.js",
+    "claude:test-scan": "powershell -ExecutionPolicy Bypass -File scripts/claude-test-scanner.ps1",
+    "claude:test-create": "powershell -ExecutionPolicy Bypass -File scripts/claude-test-creator.ps1",
+    "claude:test-debug": "powershell -ExecutionPolicy Bypass -File scripts/claude-test-debugger.ps1",
+    "claude:test-full": "powershell -ExecutionPolicy Bypass -File scripts/claude-test-full-suite.ps1",
     "prepare": "husky install"
   },
   "dependencies": {

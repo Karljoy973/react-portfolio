@@ -1,39 +1,31 @@
 import { Link } from "react-router";
-
-export const Hero = () => {
+export const Hero = ({
+  name = "[NAME]",
+  text = " I build friendly web experiences and help others become confident, modern developers.",
+}: HeroProps) => {
   return (
-    <>
-      <header
-        className="text-center py-20
-      px-4
-      bg-gray-900 
-      text-whitetransition-colors 
-      duration-300"
-      >
-        <h2
-          className="
-          text-gray-300
-        text-4xl
-        font-bold
-        mb-4
-        "
+    <header className="text-center py-20 px-4 bg-gray-900 text-white transition-colors duration-300">
+      <h2 className="text-4xl font-bold mb-4">Hey, I'm {name} 👋</h2>
+      <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-6">{text}</p>
+      <div className="flex justify-center gap-4">
+        <Link
+          to="/projects"
+          className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
         >
-          Coucou cest Karl !
-        </h2>
-        <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-6">
-          Jaime developper des projets personnels qui font intervenir du web, de
-          lIA et de la realité virutelle ! Nhésitez pas à revenir de temps en
-          temps pour voir mon évolution !
-        </p>
-        <div className="flex justify-center gap-4">
-          <Link
-            to="/projects"
-            className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-          >
-            Mes Projets !
-          </Link>
-        </div>
-      </header>
-    </>
+          View Projects
+        </Link>
+        <Link
+          to="/contact"
+          className="border border-blue-500 text-blue-400 px-6 py-2 rounded hover:bg-blue-600 hover:text-white transition"
+        >
+          Contact Me
+        </Link>
+      </div>
+    </header>
   );
+};
+
+export type HeroProps = {
+  name: string;
+  text?: string;
 };

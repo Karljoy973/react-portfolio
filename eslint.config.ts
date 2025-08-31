@@ -41,6 +41,7 @@ export default defineConfig([
       // JSX moderne → plus besoin d'importer React
       "react/react-in-jsx-scope": "off",
       "react/jsx-uses-react": "off",
+      "react/no-unescaped-entities": "off",
 
       // Tu choisis d’autoriser les default exports
       "import/no-default-export": "off",

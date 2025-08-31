@@ -4,7 +4,7 @@ export function HomePage() {
   return (
     <>
       <section className="w-[100%] flex" data-testid="home-page">
-        <Hero />
+        <Hero name="Karl" />
       </section>
     </>
   );

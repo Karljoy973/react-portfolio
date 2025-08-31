@@ -1,9 +1,26 @@
+/**
+ * @fileoverview Tests pour le composant HomePage
+ * 
+ * Ce fichier teste la page d'accueil de l'application, incluant
+ * sa structure, ses classes CSS et l'intégration du composant Hero.
+ * 
+ * Note: Le composant Hero est mocké pour éviter les problèmes de routage
+ * et se concentrer sur les tests de structure de la HomePage.
+ * 
+ * @author Rovo Dev
+ * @version 1.0.0
+ */
+
+import React from "react";
 import { describe, expect, test, beforeEach, afterEach, vi } from "vitest";
 import { cleanup, render } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { HomePage } from "@/home/index";
 
-// Mock the Hero component to avoid Link issues
+/**
+ * Mock du composant Hero pour éviter les problèmes de routage
+ * et tester uniquement la structure de la HomePage
+ */
 vi.mock("@/components/Hero", () => ({
   Hero: () => (
     <header data-testid="mocked-hero">

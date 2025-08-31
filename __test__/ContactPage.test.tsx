@@ -1,3 +1,4 @@
+import React from "react";
 import { describe, expect, test, beforeEach, afterEach } from "vitest";
 import { cleanup, render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";

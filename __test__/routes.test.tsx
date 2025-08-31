@@ -1,6 +1,18 @@
+/**
+ * @fileoverview Tests de routage pour l'application React Portfolio
+ * 
+ * Ce fichier teste le système de routage principal de l'application,
+ * incluant la navigation entre les différentes pages et la gestion
+ * des routes invalides.
+ * 
+ * @author Rovo Dev
+ * @version 1.0.0
+ */
+
+import React from "react";
 import { describe, test, expect, beforeEach, afterEach } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
-import { createMemoryRouter, RouterProvider } from "react-router-dom";
+import { createMemoryRouter, RouterProvider } from "react-router";
 
 import Home from "@/routes/home";
 import Contact from "@/routes/contact";
